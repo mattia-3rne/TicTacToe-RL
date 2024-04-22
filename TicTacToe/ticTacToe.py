@@ -94,7 +94,7 @@ class State:
     def play(self, rounds=100):
         for i in range(rounds):
             if i % 1000 == 0:
-                print("Rounds {}".format(i))
+                print("Runden {}".format(i))
             while not self.isEnd:
                 # Player 1
                 positions = self.availablePositions()
@@ -146,9 +146,9 @@ class State:
             win = self.winner()
             if win is not None:
                 if win == 1:
-                    print(self.p1.name, "wins!")
+                    print(self.p1.name, "gewinnt!")
                 else:
-                    print("tie!")
+                    print("Unentschieden!")
                 self.reset()
                 break
 
@@ -162,9 +162,9 @@ class State:
                 win = self.winner()
                 if win is not None:
                     if win == -1:
-                        print(self.p2.name, "wins!")
+                        print(self.p2.name, "gewinnt!")
                     else:
-                        print("tie!")
+                        print("Unentschieden!")
                     self.reset()
                     break
 
@@ -249,8 +249,8 @@ class HumanPlayer:
 
     def chooseAction(self, positions):
         while True:
-            row = int(input("Input your action row:"))
-            col = int(input("Input your action col:"))
+            row = int(input("Vertikal 0-2:"))
+            col = int(input("Horizontal 0-2:"))
             action = (row, col)
             if action in positions:
                 return action
