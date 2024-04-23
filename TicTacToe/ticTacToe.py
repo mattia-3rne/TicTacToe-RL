@@ -189,9 +189,9 @@ class Player:
     def __init__(self, name, exp_rate=0.3):
         self.name = name
         self.states = []  # record all positions taken
-        self.lr = 0.2
-        self.exp_rate = exp_rate
-        self.decay_gamma = 0.9
+        self.learning_rate = 0.2  # learning rate
+        self.exp_rate = exp_rate 
+        self.discount_factor = 0.9 # discount factor
         self.states_value = {}  # state -> value
 
     def getHash(self, board):
@@ -226,7 +226,7 @@ class Player:
         for st in reversed(self.states):
             if self.states_value.get(st) is None:
                 self.states_value[st] = 0
-            self.states_value[st] += self.lr * (self.decay_gamma * reward - self.states_value[st])
+            self.states_value[st] += self.learning_rate * (self.discount_factor * reward - self.states_value[st]) # formula
             reward = self.states_value[st]
 
     def reset(self):
