@@ -162,7 +162,7 @@ class State:
                 win = self.winner()
                 if win is not None:
                     if win == -1:
-                        print(self.p2.name, "gewinnt!")
+                        print(self.p2.name, "gewinnst!")
                     else:
                         print("Unentschieden!")
                     self.reset()
@@ -249,11 +249,12 @@ class HumanPlayer:
 
     def chooseAction(self, positions):
         while True:
-            row = int(input("Vertikal 0-2:"))
-            col = int(input("Horizontal 0-2:"))
+            row = int(input("Vertikal 1-3:")) -1
+            col = int(input("Horizontal 1-3:")) -1
             action = (row, col)
             if action in positions:
                 return action
+    
 
     # append a hash state
     def addState(self, state):
@@ -267,20 +268,25 @@ class HumanPlayer:
         pass
 
 
-if __name__ == "__main__":
-    # training
-    p1 = Player("p1")
-    p2 = Player("p2")
 
-    st = State(p1, p2)
-    print("training...")
-    st.play(50000)
+ # training
+p1 = Player("p1")
+p2 = Player("p2")
 
-    # play with human
-    p1 = Player("computer", exp_rate=0)
-    p1.loadPolicy("policy_p1")
+st = State(p1, p2)
+print("Der Computer trainiert fleissig...")
+st.play(10000)
 
-    p2 = HumanPlayer("human")
+p1.savePolicy()
+p2.savePolicy()
 
-    st = State(p1, p2)
-    st.play2()
+p1.loadPolicy("policy_p1")
+
+ # play with human
+p1 = Player("Der Computer", exp_rate=0)
+p1.loadPolicy("policy_p1")
+
+p2 = HumanPlayer("Du")
+
+st = State(p1, p2)
+st.play2()
