@@ -233,7 +233,7 @@ class Player:
         self.states = []
 
     def savePolicy(self):
-        fw = open('C:\Coding\GitHub Repositories\Maturaarbeit\Q-Learning TicTacToe\MJeremy2017\TicTacToe\policy_' + str(self.name), 'wb')
+        fw = open('C:\Coding\GitHub Repositories\Maturaarbeit\Q-Learning TicTacToe\MJeremy2017\TicTacToe\policy_' + str(self.name), 'wb') # Achten, dass der Path stimmt, wo das Skript erstellt werden sollte!
         pickle.dump(self.states_value, fw)
         fw.close()
 
