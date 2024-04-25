@@ -198,23 +198,23 @@ class Player:
         boardHash = str(board.reshape(BOARD_COLS * BOARD_ROWS))
         return boardHash
 
-    def chooseAction(self, positions, current_board, symbol):
+    #boardHashes here are created for each individual state
+    def chooseAction(self, available_positions, current_board, symbol):
         if np.random.uniform(0, 1) <= self.exp_rate:
             # take random action
-            idx = np.random.choice(len(positions))
-            action = positions[idx]
+            idx = np.random.choice(len(available_positions))
+            action = available_positions[idx]
         else:
             value_max = -999
-            for p in positions:
+            for position in available_positions:
                 next_board = current_board.copy()
-                next_board[p] = symbol
+                next_board[position] = symbol
                 next_boardHash = self.getHash(next_board)
                 value = 0 if self.states_value.get(next_boardHash) is None else self.states_value.get(next_boardHash)
                 # print("value", value)
                 if value >= value_max:
                     value_max = value
-                    action = p
-        # print("{} takes action {}".format(self.name, action))
+                    action = position
         return action
 
     # append a hash state
