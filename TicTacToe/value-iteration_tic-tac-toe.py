@@ -233,7 +233,7 @@ class Player:
         self.states = []
 
     def savePolicy(self):
-        fw = open('policy_' + str(self.name), 'wb')
+        fw = open('C:\Coding\GitHub Repositories\Maturaarbeit\Q-Learning TicTacToe\MJeremy2017\TicTacToe\policy_' + str(self.name), 'wb')
         pickle.dump(self.states_value, fw)
         fw.close()
 
@@ -280,11 +280,9 @@ st.play(10000)
 p1.savePolicy()
 p2.savePolicy()
 
-p1.loadPolicy("policy_p1")
-
  # play with human
 p1 = Player("Der Computer", exp_rate=0)
-p1.loadPolicy("policy_p1")
+p1.loadPolicy("C:/Coding/GitHub Repositories/Maturaarbeit/Q-Learning TicTacToe/MJeremy2017/TicTacToe/policy_p1")
 
 p2 = HumanPlayer("Du")
 

@@ -93,7 +93,7 @@ class State:
     def play(self, rounds=100):
         for i in range(rounds):
             if i % 1000 == 0:
-                print("Rounds {}".format(i))
+                print("Runden {}".format(i))
             while not self.isEnd:
                 # Player 1
                 positions = self.availablePositions()
@@ -138,9 +138,9 @@ class State:
             win = self.winner()
             if win is not None:
                 if win == 1:
-                    print(self.p1.name, "wins!")
+                    print(self.p1.name, "gewinnt!")
                 else:
-                    print("Draw!")
+                    print("Unentschieden!")
                 self.reset()
                 break
             else:
@@ -153,9 +153,9 @@ class State:
                 win = self.winner()
                 if win is not None:
                     if win == -1:
-                        print(self.p2.name, "wins!")
+                        print(self.p2.name, "gewinnst!")
                     else:
-                        print("Draw!")
+                        print("Unentschieden!")
                     self.reset()
                     break
 
@@ -222,7 +222,7 @@ class Player:
         self.states = []
 
     def savePolicy(self):
-        fw = open('policy_' + str(self.name), 'wb')
+        fw = open('C:\Coding\GitHub Repositories\Maturaarbeit\Q-Learning TicTacToe\MJeremy2017\TicTacToe\policy_' + str(self.name), 'wb') #Achten, dass der Path stimmt, wo das Skript erstellt werden sollte!
         pickle.dump(self.q_values, fw)
         fw.close()
 
@@ -238,7 +238,7 @@ class HumanPlayer:
 
     def chooseAction(self, positions):
         while True:
-            row = int(input("Vertical 1-3:")) - 1
+            row = int(input("Vertikal 1-3:")) - 1
             col = int(input("Horizontal 1-3:")) - 1
             action = (row, col)
             if action in positions:
@@ -260,17 +260,17 @@ p1 = Player("p1")
 p2 = Player("p2")
 
 st = State(p1, p2)
-print("Training...")
+print("Der Computer trainiert fleissig...")
 st.play(10000)
 
 p1.savePolicy()
 p2.savePolicy()
 
 # Play with human
-p1 = Player("Computer", exp_rate=0)
-p1.loadPolicy("policy_p1")
+p1 = Player("Der Computer", exp_rate=0)
+p1.loadPolicy("C:/Coding/GitHub Repositories/Maturaarbeit/Q-Learning TicTacToe/MJeremy2017/TicTacToe/policy_p1")
 
-p2 = HumanPlayer("You")
+p2 = HumanPlayer("Du")
 
 st = State(p1, p2)
 st.play2()
